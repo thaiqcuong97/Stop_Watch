@@ -69,7 +69,7 @@ function checkTime(i) {
   return i;
 }
 
-/* Reset */
+/* Reset  */
 function Reset() {
   centiseconds = 0;
   seconds = 0;
