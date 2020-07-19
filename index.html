@@ -16,19 +16,24 @@
         </div>
         <div class="stopwatch">
           <div class="display">
-            <span class="minutes">00</span>
-            <span class="seconds">00</span>
-            <span class="centiseconds">00</span>
+            <span id="hours">00 </span> : 
+            <span id="minutes">00 </span> :
+            <span id="seconds">00 </span> :
+            <span id="centiseconds">00</span>
           </div>
-          <div class="controls">
-            <button class="start">Start</button>
-            <button class="stop">Stop</button>
-            <button class="reset">Reset</button>
+          <div class="controls" id="controlBtn">
+            <button onclick="Start()" class="btn" id="start">
+              Start
+            </button>
+            <button onclick="Stop()" class="btn" id="stop">Stop</button>
+            <button onclick="Reset()" class="btn" id="reset">Reset</button>
           </div>
         </div>
       </div>
     </div>
+    <!--import npm bafle-->
     <script src="https://cdn.jsdelivr.net/npm/baffle@0.3.6/dist/baffle.min.js"></script>
+    <!--import file js-->
     <script src="/js/script.js"></script>
   </body>
 </html>
