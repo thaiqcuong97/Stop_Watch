@@ -1,68 +1,101 @@
-//logo 
-// let baffle = require('baffle');
+//logo
+function Logo() {
+  const text = baffle(".logo");
+  text.set({
+    characters: "021 8793 2563 196 3678 215 698 748015",
+    speed: 120,
+  });
+  text.start();
+  text.reveal(4000);
+}
+Logo();
 
-const text = baffle(".logo");
-text.set({
-  characters: "021 8793 2563 196 3678 215 698 748015>",
-  speed: 120,
-});
-text.start();
-text.reveal(4000);
 
 //stopwatch
-var ss = document.getElementsByClassName('stopwatch');
+let x = 0,
+  /* holds incrementing value */
+  centiseconds = 0,
+  seconds = 0,
+  minutes = 0,
+  hours = 0,
+  /* Contains and outputs returned value of  function checkTime */
+  cents = 0,
+  secs = 0,
+  mins = 0,
+  hourOuts = 0;
 
-[].forEach.call(ss, function (s) {
-    var currentTimer = 0,
-        interval = 0,
-        lastUpdateTime = new Date().getTime(),
-        start = s.querySelector('button.start'),
-        stop = s.querySelector('button.stop'),
-        reset = s.querySelector('button.reset'),
-        mins = s.querySelector('span.minutes'),
-        secs = s.querySelector('span.seconds'),
-        cents = s.querySelector('span.centiseconds');
+/* Start */
+function Start() {
+  x = setInterval(timer, 10);
+  console.log("xx", x);
+}
+/*Stop */
+function Stop() {
+  clearInterval(x);
+}
 
-    start.addEventListener('click', startTimer);
-    stop.addEventListener('click', stopTimer);
-    reset.addEventListener('click', resetTimer);
+/* Main Time */
+function timer() {
+  cents = checkTime(centiseconds);
+  secs = checkTime(seconds);
+  mins = checkTime(minutes);
+  hourOuts = checkTime(hours);
 
-    function pad (n) {
-        return ('00' + n).substr(-2);
-    }
+  centiseconds = ++centiseconds;
 
-    function update () {
-        var now = new Date().getTime(),
-            dt = now - lastUpdateTime;
+  if (centiseconds === 100) {
+    centiseconds = 0;
+    seconds = ++seconds;
+  }
+  if (seconds === 60) {
+    minutes = ++minutes;
+    seconds = 0;
+  }
+  if (minutes === 60) {
+    minutes = 0;
+    hours = ++hours;
+  }
 
-        currentTimer += dt;
+  document.getElementById("centiseconds").innerHTML = cents;
+  document.getElementById("seconds").innerHTML = secs;
+  document.getElementById("minutes").innerHTML = mins;
+  document.getElementById("hours").innerHTML = hourOuts;
+}
+/*Adds 0 when value is <10*/
+function checkTime(i) {
+  if (i < 10) {
+    i = "0" + i;
+  }
+  return i;
+}
 
-        var time = new Date(currentTimer);
+/* Reset */
+function Reset() {
+  centiseconds = 0;
+  seconds = 0;
+  minutes = 0;
+  hours = 0;
 
-        mins.innerHTML = pad(time.getMinutes());
-        secs.innerHTML = pad(time.getSeconds());
-        cents.innerHTML = pad(Math.floor(time.getMilliseconds() / 10));
+  document.getElementById("milisec").innerHTML = "00";
+  document.getElementById("sec").innerHTML = "00";
+  document.getElementById("min").innerHTML = "00";
+  document.getElementById("hour").innerHTML = "00";
+}
 
-        lastUpdateTime = now;
-    }
-
-    function startTimer () {
-        if (!interval) {
-            lastUpdateTime = new Date().getTime();
-            interval = setInterval(update, 1);
-        }
-    }
-
-    function stopTimer () {
-        clearInterval(interval);
-        interval = 0;
-    }
-
-    function resetTimer () {
-        stopTimer();
-
-        currentTimer = 0;
-
-        mins.innerHTML = secs.innerHTML = cents.innerHTML = pad(0);
-    }
-});
+/* 
+Active Button
+function activeBtn() {
+  let controlBtn = document.getElementById("controlBtn");
+  let btns = controlBtn.getElementsByClassName("btn");
+  for (let i = 0; i < btns.length; i++) {
+    btns[i].addEventListener("click", function () {
+      let current = document.getElementsByClassName("active");
+      if (current.length > 0) {
+        current[0].className = current[0].className.replace(" active", "");
+      }
+      this.className += " active";
+    });
+  }
+}
+activeBtn();
+*/
