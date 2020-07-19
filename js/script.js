@@ -12,7 +12,7 @@ Logo();
 
 
 //stopwatch
-let x = 0,
+let time = 0,
   /* holds incrementing value */
   centiseconds = 0,
   seconds = 0,
@@ -26,12 +26,14 @@ let x = 0,
 
 /* Start */
 function Start() {
-  x = setInterval(timer, 10);
-  console.log("xx", x);
+  if(time){
+    clearInterval(time);
+  }
+  time = setInterval(timer, 10);
 }
 /*Stop */
 function Stop() {
-  clearInterval(x);
+  clearInterval(time);
 }
 
 /* Main Time */
